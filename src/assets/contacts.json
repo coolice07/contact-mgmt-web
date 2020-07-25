@@ -1,0 +1,170 @@
+[
+    {
+        "contactId": 1,
+        "firstName": "Bob",
+        "lastName": "Frederick",
+        "birthDate": "06/21/1980",
+        "gender": "M",
+        "title": "Manager"
+    },
+    {
+        "contactId": 2,
+        "firstName": "Kathy",
+        "lastName": "Kale",
+        "birthDate": "01/31/1972",
+        "gender": "F",
+        "title": "Software Engineer"
+    },
+    {
+        "contactId": 3,
+        "firstName": "Carol",
+        "lastName": "Carrot",
+        "birthDate": "12/08/2000",
+        "gender": "F",
+        "title": "QA Analyst"
+    },
+    {
+        "contactId": 4,
+        "firstName": "Tommy",
+        "lastName": "Tomato",
+        "birthDate": "03/11/1992",
+        "gender": "M",
+        "title": "Software Engineer"
+    },
+    {
+        "contactId": 5,
+        "firstName": "Patty",
+        "lastName": "Potato",
+        "birthDate": "04/21/1980",
+        "gender": "F",
+        "title": "Manager"
+    },
+    {
+        "contactId": 6,
+        "firstName": "Danger",
+        "lastName": "Mouse",
+        "birthDate": "06/21/1980",
+        "gender": "M",
+        "title": "Manager"
+    },
+    {
+        "contactId": 7,
+        "firstName": "Thunder",
+        "lastName": "Cats",
+        "birthDate": "01/31/1972",
+        "gender": "F",
+        "title": "Software Engineer"
+    },
+    {
+        "contactId": 8,
+        "firstName": "Tiger",
+        "lastName": "Sharks",
+        "birthDate": "12/08/2000",
+        "gender": "F",
+        "title": "QA Analyst"
+    },
+    {
+        "contactId": 9,
+        "firstName": "Street",
+        "lastName": "Frogs",
+        "birthDate": "03/11/1992",
+        "gender": "M",
+        "title": "Software Engineer"
+    },
+    {
+        "contactId": 10,
+        "firstName": "Oddy",
+        "lastName": "Garfield",
+        "birthDate": "04/21/1980",
+        "gender": "F",
+        "title": "Manager"
+    },
+    {
+        "contactId": 11,
+        "firstName": "Red",
+        "lastName": "Apple",
+        "birthDate": "06/21/1980",
+        "gender": "M",
+        "title": "Manager"
+    },
+    {
+        "contactId": 12,
+        "firstName": "Yellow",
+        "lastName": "Banana",
+        "birthDate": "01/31/1972",
+        "gender": "F",
+        "title": "Software Engineer"
+    },
+    {
+        "contactId": 13,
+        "firstName": "Green",
+        "lastName": "Mango",
+        "birthDate": "12/08/2000",
+        "gender": "F",
+        "title": "QA Analyst"
+    },
+    {
+        "contactId": 14,
+        "firstName": "Orange",
+        "lastName": "Orange",
+        "birthDate": "03/11/1992",
+        "gender": "M",
+        "title": "Software Engineer"
+    },
+    {
+        "contactId": 15,
+        "firstName": "Pink",
+        "lastName": "Raspberry",
+        "birthDate": "04/21/1980",
+        "gender": "F",
+        "title": "Manager"
+    },
+    {
+        "contactId": 16,
+        "firstName": "White",
+        "lastName": "Peach",
+        "birthDate": "06/21/1980",
+        "gender": "M",
+        "title": "Manager"
+    },
+    {
+        "contactId": 17,
+        "firstName": "Black",
+        "lastName": "Berry",
+        "birthDate": "01/31/1972",
+        "gender": "F",
+        "title": "Software Engineer"
+    },
+    {
+        "contactId": 18,
+        "firstName": "Purple",
+        "lastName": "Grape",
+        "birthDate": "12/08/2000",
+        "gender": "F",
+        "title": "QA Analyst"
+    },
+    {
+        "contactId": 19,
+        "firstName": "Red",
+        "lastName": "Watermelon",
+        "birthDate": "03/11/1992",
+        "gender": "M",
+        "title": "Software Engineer"
+    },
+    {
+        "contactId": 20,
+        "firstName": "Yellow",
+        "lastName": "Lemon",
+        "birthDate": "04/21/1980",
+        "gender": "F",
+        "title": "Manager"
+    },
+    {
+        "contactId": 21,
+        "firstName": "Blue",
+        "lastName": "Berry",
+        "birthDate": "04/21/1980",
+        "gender": "F",
+        "title": "Manager"
+    }              
+]

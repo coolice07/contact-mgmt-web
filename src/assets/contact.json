@@ -1,0 +1,59 @@
+{
+    "contactId": 1,
+    "firstName": "Bob",
+    "lastName": "Frederick",
+    "birthDate": "06/21/1980",
+    "gender": "M",
+    "title": "Manager",
+    "addresses": [
+        {
+            "addressId": 1,
+            "addressType": "home",
+            "streetNumber": "1234",
+            "streetName": "Blah Blah St",
+            "unit": "",
+            "city": "Chilltown",
+            "state": "WV",
+            "zipCode": "12345",
+            "contactId": 1
+        },
+        {
+            "addressId": 1,
+            "addressType": "work",
+            "streetNumber": "100",
+            "streetName": "office place",
+            "unit": "2B",
+            "city": "Busytown",
+            "state": "WV",
+            "zipCode": "12345",
+            "contactId": 1
+        },
+        {
+            "addressId": 2,
+            "addressType": "home",
+            "streetNumber": "3456",
+            "streetName": "Sesame St",
+            "unit": "",
+            "city": "PleasantVille",
+            "state": "WV",
+            "zipCode": "12345",
+            "contactId": 1
+        }
+    ],
+    "communications": [
+        {
+            "communicationId": 1,
+            "communicationType": "phone",
+            "communicationValue": "555-555-5555",
+            "preferred": "Y",
+            "contactId": 1
+        },
+        {
+            "communicationId": 2,
+            "communicationType": "email",
+            "communicationValue": "bfe@sample.com",
+            "preferred": "",
+            "contactId": 1
+        }
+    ]
+}

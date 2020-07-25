@@ -1,0 +1,86 @@
+<div class="card">
+    <div class="card-header">
+        Placeholder for logo or company title
+    </div>    
+    <div class="card-body" *ngIf="contact">
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6 page-header">
+                        <i class="fa fa-address-book" aria-hidden="true"></i>
+                        Contact Details
+                    </div>
+                    <div class="col-6 edit-button">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="edit($event, contact)">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 back-button">
+                <button type="button" class="btn btn-secondary btn-sm" (click)='back()'>
+                    Back to Contact List
+                </button>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-2">Name:</div>
+            <div class="col-10"> {{contact.firstName}} {{contact.lastName}}</div>
+            <div class="col-2">Birth Date:</div>
+            <div class="col-10">{{contact.birthDate}}</div>
+            <div class="col-2">Gender:</div>
+            <div class="col-10">{{contact.gender}}</div>
+            <div class="col-2">Title:</div>
+            <div class="col-10">{{contact.title}}</div>                
+        </div>
+    </div>
+
+    <div class="">
+        <!-- Address component -->
+        <app-address-list [contactId]="contactId"></app-address-list>
+        
+        <!-- Communication component -->
+        <app-communication-list [contactId]="contactId"></app-communication-list>
+    </div>
+</div>
+
+<p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
+    <div class="p-grid ui-fluid" *ngIf="contact">
+        <div class="p-col-4">
+            <label for="firstName">First Name</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="firstName" [(ngModel)]="contact.firstName" autofocus />
+        </div>
+        <div class="p-col-4">
+            <label for="year">Last Name</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="lastName" [(ngModel)]="contact.lastName" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">Birth Date</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="birthDate" [(ngModel)]="contact.birthDate" />
+        </div>
+        <div class="p-col-4">
+            <label for="color">Gender</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="gender" [(ngModel)]="contact.gender" />
+        </div>
+        <div class="p-col-4">
+            <label for="color">Title</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="title" [(ngModel)]="contact.title" />
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
+            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>

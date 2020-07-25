@@ -1,0 +1,11 @@
+.page-header {
+    font-size: 25px;
+    float: left
+}
+.edit-button {
+    padding-top: 5px;
+}
+.back-button {
+    text-align: right;
+    padding-top: 5px;
+}

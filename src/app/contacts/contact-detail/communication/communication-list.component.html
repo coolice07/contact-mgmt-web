@@ -1,0 +1,36 @@
+
+<div *ngIf="communications">
+    <p-dataView #dv [value]="communications" [paginator]="true" [rows]="5" paginatorPosition="top" 
+        filterBy="communicationType,communicationValue,preferred">
+        <p-header>
+            <div class="row">
+                <div class="col-4">
+                    <h4>
+                        <i class="fa fa-phone-square" aria-hidden="true"></i>
+                        Communication
+                    </h4>
+                </div>
+                <div class="col-8">
+                    <input type="search" pInputText placeholder="Filter" 
+                    (input)="dv.filter($event.target.value)">
+                </div>
+            </div>
+        </p-header>
+        <ng-template let-communication pTemplate="listItem">
+            <div class="row communication-details">
+                <div class="col-1">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="onEdit($event, communication)">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="col-2">Type: {{communication.communicationType}}</div>
+                <div class="col-4">{{communication.communicationValue}} </div>
+                <div class="col-4">
+                    <div *ngIf="communication.preferred == 'Y'">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>    
+</div>
