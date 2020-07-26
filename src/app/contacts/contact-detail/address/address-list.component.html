@@ -7,6 +7,9 @@
                     <h4>
                         <i class="fa fa-home" aria-hidden="true"></i>
                         Address
+                        <button type="button" class="btn btn-primary btn-sm" (click)="add()">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add
+                        </button> 
                     </h4>
                 </div>
                 <div class="col-8 filter-box">
@@ -27,7 +30,7 @@
                     {{address.zipCode}}
                 </div>
                 <div class="col-1">
-                    <button type="button" class="btn btn-primary btn-sm" (click)="edit($event, address)">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="edit(address)">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
                 </div>

@@ -10,9 +10,13 @@
                         <i class="fa fa-address-book" aria-hidden="true"></i>
                         Contact Details
                     </div>
-                    <div class="col-6 edit-button">
-                        <button type="button" class="btn btn-primary btn-sm" (click)="edit($event, contact)">
+                    <div class="col-6 contact-buttons">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="edit(contact)">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary btn-sm" (click)="delete(contact)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>

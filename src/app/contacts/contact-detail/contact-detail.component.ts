@@ -49,9 +49,8 @@ export class ContactDetailComponent implements OnInit {
         });
     }
 
-    edit(event: Event): void {
+    edit(): void {
         this.displayDialog = true;
-        event.preventDefault();
     }
 
     save() {
@@ -69,10 +68,9 @@ export class ContactDetailComponent implements OnInit {
     delete() {
         // call contactService to edit the contact
         this.contactService.deleteContact(this.contactId).subscribe({
+            next: () => this.router.navigate([`/contacts`]),
             error: err => this.errorMessage = err
         });
-
-        this.displayDialog = false;
     }
 
     back(): void {

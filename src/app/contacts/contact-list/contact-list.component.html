@@ -14,10 +14,17 @@
 
             <!-- Global Filter -->
             <ng-template pTemplate="caption">
-                <div class="filter-box">
-                    <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder="Filter" 
-                        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                <div class="row" >
+                    <div class="col-6 contact-list-buttons">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="add()">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add New Contact
+                        </button> 
+                    </div>
+                    <div class="col-6 filter-box">
+                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Filter" 
+                            (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>    
                 </div>
             </ng-template>
 
@@ -44,3 +51,45 @@
         
     </div>
 </div>
+
+<!-- Modal form for adding a new contact -->
+
+<p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true" [style]="{width: '400px'}">
+    <div class="p-grid ui-fluid" *ngIf="newContact">
+        <div class="p-col-4">
+            <label for="firstName">First Name</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="firstName" [(ngModel)]="newContact.firstName" autofocus />
+        </div>
+        <div class="p-col-4">
+            <label for="lastName">Last Name</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="lastName" [(ngModel)]="newContact.lastName" />
+        </div>
+        <div class="p-col-4">
+            <label for="birthDate">Birth Date</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="birthDate" [(ngModel)]="newContact.birthDate" />
+        </div>
+        <div class="p-col-4">
+            <label for="gender">Gender</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="gender" [(ngModel)]="newContact.gender" />
+        </div>
+        <div class="p-col-4">
+            <label for="title">Title</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="title" [(ngModel)]="newContact.title" />
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>

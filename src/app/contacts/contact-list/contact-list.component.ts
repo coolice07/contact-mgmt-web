@@ -13,7 +13,11 @@ export class ContactListComponent implements OnInit {
     pageTitle = "Contact Information";
     contacts: Contact[] = [];
     errorMessage: string;
-    
+
+    // for add contact form
+    newContact: Contact;
+    displayDialog: boolean = false;
+
     // primeng content and pagination
     cols: any[];
     first: number = 0;
@@ -29,13 +33,8 @@ export class ContactListComponent implements OnInit {
 
     ngOnInit(): void {
 
-        // Subscribe to the observable in ContactService to get the list of contacts from an api via http call
-        this.contactService.getContacts().subscribe({
-            next: contacts => {
-                this.contacts = contacts;
-            },
-            error: err => this.errorMessage = err
-        });
+        // fetch the contact list
+        this.getContactList();
 
         // set the column definition to be used by primeng
         this.cols = [
@@ -46,6 +45,7 @@ export class ContactListComponent implements OnInit {
             { field: 'title', header: 'Title' }
         ];
 
+        // primeng table global filter
         FilterUtils['custom'] = (value, filter): boolean => {
             if (filter === undefined || filter === null || filter.trim() === '') {
                 return true;
@@ -58,6 +58,38 @@ export class ContactListComponent implements OnInit {
             return parseInt(filter) > value;
         }
     }
+
+    getContactList() {
+        // Subscribe to the observable in ContactService to get the list of contacts from an api via http call
+        this.contactService.getContacts().subscribe({
+            next: contacts => {
+                this.contacts = contacts;
+            },
+            error: err => this.errorMessage = err
+        });
+    }
+
+    add() {
+        this.newContact = {};
+        this.displayDialog = true;
+    }
+
+    save() {
+        // call contactService to add the new contact
+        this.contactService.addContact(this.newContact).subscribe({
+            next: address => {
+                // refresh the contact list
+                this.getContactList();
+            },
+            error: err => this.errorMessage = err
+        });
+
+        this.displayDialog = false;
+    }
+
+    // **************************
+    // primeng table controls
+    // **************************
 
     next() {
         this.first = this.first + this.rows;

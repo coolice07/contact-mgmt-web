@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Contact } from '../../contact';
 import { ContactService } from '../../contact.service';
 import { Communication } from '../../communication';
 
@@ -17,6 +16,7 @@ export class CommunicationListComponent implements OnInit {
     // primeng dataview
     selectedCommunication: Communication;
     displayDialog: boolean;
+    isNewCommunication: boolean = false;
 
     constructor(private contactService: ContactService) { }
 
@@ -35,38 +35,44 @@ export class CommunicationListComponent implements OnInit {
         });
     }
 
-    showAddForm() {
-
-    }
-
     add() {
-        // call contactService to add the communication
-        this.contactService.addCommunication(this.selectedCommunication).subscribe({
-            next: communication => {
-                this.selectedCommunication = communication;
-            },
-            error: err => this.errorMessage = err
-        });
-
-        this.displayDialog = false;
+        this.displayDialog = true;
+        this.selectedCommunication = {};
+        this.isNewCommunication = true;
     }
 
-    edit(event: Event, communication: Communication) {
+    edit(communication: Communication) {
         this.selectedCommunication = communication;
         this.displayDialog = true;
-        event.preventDefault();
+        this.isNewCommunication = false;
     }
 
     save() {
-        // call contactService to edit the communication
-        this.contactService.editCommunication(this.selectedCommunication).subscribe({
-            next: communication => {
-                this.selectedCommunication = communication;
-            },
-            error: err => this.errorMessage = err
-        });
+        if (this.isNewCommunication) {
+            // call contactService to add the communication
+            this.contactService.addCommunication(this.contactId, this.selectedCommunication).subscribe({
+                next: communication => {
+                    this.selectedCommunication = communication;
+                    // refresh the communication list
+                    this.getCommunications();
+                },
+                error: err => this.errorMessage = err
+            });
+        }
+        else {
+            // call contactService to edit the communication
+            this.contactService.editCommunication(this.selectedCommunication).subscribe({
+                next: communication => {
+                    this.selectedCommunication = communication;
+                    // refresh the communication list
+                    this.getCommunications();
+                },
+                error: err => this.errorMessage = err
+            });
+        }
 
         this.displayDialog = false;
+        event.preventDefault();
     }
 
     delete() {
@@ -75,11 +81,12 @@ export class CommunicationListComponent implements OnInit {
         
         // call contactService to delete the communication
         this.contactService.deleteCommunication(contactId, communicationId).subscribe({
+            next: () => {
+                // refresh the communication list
+                this.getCommunications();
+            },
             error: err => this.errorMessage = err
         });
-
-        // refresh the address list
-        this.getCommunications();
 
         this.displayDialog = false;
     }

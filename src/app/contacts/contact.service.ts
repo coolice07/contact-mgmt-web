@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 
 import { Contact } from './contact';
@@ -40,6 +40,12 @@ export class ContactService {
         );
     }
 
+    addContact(contact: Contact): Observable<Contact | undefined> {
+        return this.http.post<Contact>(this.contactUrl, contact).pipe(
+            catchError(this.handleError)
+        );
+    }
+
     editContact(contact: Contact): Observable<Contact | undefined> {
         const url = this.contactUrl + "/" + contact.contactId;
         return this.http.put<Contact>(url, contact).pipe(
@@ -61,6 +67,13 @@ export class ContactService {
     getAddresses(contactId: number): Observable<Address[] | undefined> {
         const url = this.contactUrl + "/" + contactId + this.addressUrl;
         return this.http.get<Address[]>(url).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    addAddress(contactId: number, address: Address): Observable<Address | undefined> {
+        const url = this.contactUrl + "/" + contactId + this.addressUrl;
+        return this.http.post<Address>(url, address).pipe(
             catchError(this.handleError)
         );
     }
@@ -94,8 +107,8 @@ export class ContactService {
         );
     }
 
-    addCommunication(communication: Communication): Observable<Communication | undefined> {
-        const url = this.contactUrl + "/" + communication.contactId + this.communicationUrl;
+    addCommunication(contactId: number, communication: Communication): Observable<Communication | undefined> {
+        const url = this.contactUrl + "/" + contactId + this.communicationUrl;
         return this.http.post<Communication>(url, communication).pipe(
             catchError(this.handleError)
         );
