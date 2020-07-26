@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
-import { Contact } from '../../contact';
 import { Address } from '../../address';
 import { ContactService } from '../../contact.service';
 
@@ -21,9 +20,6 @@ export class AddressListComponent implements OnInit {
     constructor(private contactService: ContactService) { }
 
     ngOnInit(): void { 
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
         this.getAddresses();
     }
 
@@ -38,11 +34,36 @@ export class AddressListComponent implements OnInit {
         });
     }
 
-    onEdit(event: Event, address: Address) {
+    edit(event: Event, address: Address) {
         this.selectedAddress = address;
         this.displayDialog = true;
-        console.log(this.selectedAddress);
         event.preventDefault();
     }
 
+    save() {
+        // call contactService to edit the address
+        this.contactService.editAddress(this.selectedAddress).subscribe({
+            next: address => {
+                this.selectedAddress = address;
+            },
+            error: err => this.errorMessage = err
+        });
+
+        this.displayDialog = false;
+    }
+
+    delete() {
+        const contactId = this.selectedAddress.contactId;
+        const addressId = this.selectedAddress.addressId;
+        
+        // call contactService to delete the address
+        this.contactService.deleteAddress(contactId, addressId).subscribe({
+            error: err => this.errorMessage = err
+        });
+
+        // refresh the address list
+        this.getAddresses();
+
+        this.displayDialog = false;
+    }
 }

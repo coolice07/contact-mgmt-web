@@ -51,15 +51,12 @@ export class ContactDetailComponent implements OnInit {
 
     edit(event: Event): void {
         this.displayDialog = true;
-        console.log(this.contact);
         event.preventDefault();
     }
 
     save() {
-        console.log(this.contact);
-
         // call contactService to edit the contact
-        this.contactService.editContact(this.contactId, this.contact).subscribe({
+        this.contactService.editContact(this.contact).subscribe({
             next: contact => {
                 this.contact = contact;
             },
@@ -70,6 +67,10 @@ export class ContactDetailComponent implements OnInit {
     }
 
     delete() {
+        // call contactService to edit the contact
+        this.contactService.deleteContact(this.contactId).subscribe({
+            error: err => this.errorMessage = err
+        });
 
         this.displayDialog = false;
     }

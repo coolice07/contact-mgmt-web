@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Contact } from '../../contact';
 import { ContactService } from '../../contact.service';
@@ -21,9 +21,6 @@ export class CommunicationListComponent implements OnInit {
     constructor(private contactService: ContactService) { }
 
     ngOnInit(): void { 
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
         this.getCommunications();
     }
 
@@ -38,11 +35,52 @@ export class CommunicationListComponent implements OnInit {
         });
     }
 
-    onEdit(event: Event, communication: Communication) {
+    showAddForm() {
+
+    }
+
+    add() {
+        // call contactService to add the communication
+        this.contactService.addCommunication(this.selectedCommunication).subscribe({
+            next: communication => {
+                this.selectedCommunication = communication;
+            },
+            error: err => this.errorMessage = err
+        });
+
+        this.displayDialog = false;
+    }
+
+    edit(event: Event, communication: Communication) {
         this.selectedCommunication = communication;
         this.displayDialog = true;
-        console.log(this.selectedCommunication);
         event.preventDefault();
     }
 
+    save() {
+        // call contactService to edit the communication
+        this.contactService.editCommunication(this.selectedCommunication).subscribe({
+            next: communication => {
+                this.selectedCommunication = communication;
+            },
+            error: err => this.errorMessage = err
+        });
+
+        this.displayDialog = false;
+    }
+
+    delete() {
+        const contactId = this.selectedCommunication.contactId;
+        const communicationId = this.selectedCommunication.communicationId;
+        
+        // call contactService to delete the communication
+        this.contactService.deleteCommunication(contactId, communicationId).subscribe({
+            error: err => this.errorMessage = err
+        });
+
+        // refresh the address list
+        this.getCommunications();
+
+        this.displayDialog = false;
+    }
 }

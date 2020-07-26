@@ -4,13 +4,16 @@
         filterBy="communicationType,communicationValue,preferred">
         <p-header>
             <div class="row">
-                <div class="col-4">
+                <div class="col-6">
                     <h4>
                         <i class="fa fa-phone-square" aria-hidden="true"></i>
                         Communication
+                        <button type="button" class="btn btn-primary btn-sm" (click)="showAddForm()">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>                
                     </h4>
                 </div>
-                <div class="col-8">
+                <div class="col-6 filter-box">
                     <input type="search" pInputText placeholder="Filter" 
                     (input)="dv.filter($event.target.value)">
                 </div>
@@ -19,18 +22,49 @@
         <ng-template let-communication pTemplate="listItem">
             <div class="row communication-details">
                 <div class="col-1">
-                    <button type="button" class="btn btn-primary btn-sm" (click)="onEdit($event, communication)">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </button>
+                    <div *ngIf="communication.preferred == 'Y'">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                    </div>
                 </div>
                 <div class="col-2">Type: {{communication.communicationType}}</div>
-                <div class="col-4">{{communication.communicationValue}} </div>
-                <div class="col-4">
-                    <div *ngIf="communication.preferred == 'Y'">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
+                <div class="col-8">{{communication.communicationValue}} </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="edit($event, communication)">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </ng-template>
     </p-dataView>    
 </div>
+
+<!-- Modal form for edit -->
+
+<p-dialog header="Communication Details" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true" [style]="{width: '400px'}">
+    <div class="p-grid ui-fluid" *ngIf="selectedCommunication">
+        <div class="p-col-4">
+            <label for="communicationType">Communication Type</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="communicationType" [(ngModel)]="selectedCommunication.communicationType" autofocus />
+        </div>
+        <div class="p-col-4">
+            <label for="communicationValue">Communication Value</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="communicationValue" [(ngModel)]="selectedCommunication.communicationValue" />
+        </div>
+        <div class="p-col-4">
+            <label for="preferred">Preferred</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="preferred" [(ngModel)]="selectedCommunication.preferred" />
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
+            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>

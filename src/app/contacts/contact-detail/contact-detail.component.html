@@ -44,7 +44,9 @@
     </div>
 </div>
 
-<p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
+<!-- Modal form for edit -->
+
+<p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true" [style]="{width: '400px'}">
     <div class="p-grid ui-fluid" *ngIf="contact">
         <div class="p-col-4">
             <label for="firstName">First Name</label>
@@ -53,25 +55,25 @@
             <input pInputText id="firstName" [(ngModel)]="contact.firstName" autofocus />
         </div>
         <div class="p-col-4">
-            <label for="year">Last Name</label>
+            <label for="lastName">Last Name</label>
         </div>
         <div class="p-col-8">
             <input pInputText id="lastName" [(ngModel)]="contact.lastName" />
         </div>
         <div class="p-col-4">
-            <label for="brand">Birth Date</label>
+            <label for="birthDate">Birth Date</label>
         </div>
         <div class="p-col-8">
             <input pInputText id="birthDate" [(ngModel)]="contact.birthDate" />
         </div>
         <div class="p-col-4">
-            <label for="color">Gender</label>
+            <label for="gender">Gender</label>
         </div>
         <div class="p-col-8">
             <input pInputText id="gender" [(ngModel)]="contact.gender" />
         </div>
         <div class="p-col-4">
-            <label for="color">Title</label>
+            <label for="title">Title</label>
         </div>
         <div class="p-col-8">
             <input pInputText id="title" [(ngModel)]="contact.title" />

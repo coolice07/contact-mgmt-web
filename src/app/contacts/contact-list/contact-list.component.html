@@ -9,12 +9,12 @@
     <div class="table-responsive">
         <p-table #dt [columns]="cols" [value]="contacts" 
             selectionMode="single" [(selection)]="selectedContact" (onRowSelect)="onRowSelect($event)"
-            [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+            [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
 
             <!-- Global Filter -->
             <ng-template pTemplate="caption">
-                <div style="text-align: left">
+                <div class="filter-box">
                     <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
                     <input type="text" pInputText size="50" placeholder="Filter" 
                         (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
