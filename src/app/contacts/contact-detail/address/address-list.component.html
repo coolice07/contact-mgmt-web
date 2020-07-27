@@ -8,7 +8,7 @@
                         <i class="fa fa-home" aria-hidden="true"></i>
                         Address
                         <button type="button" class="btn btn-primary btn-sm" (click)="add()">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Add
+                            <i class="fa fa-plus" aria-hidden="true"></i>
                         </button> 
                     </h4>
                 </div>
@@ -21,7 +21,7 @@
         <ng-template let-address pTemplate="listItem">
             <div class="row address-details">
                 <div class="col-2">Type: {{address.addressType}}</div>
-                <div class="col-9">
+                <div class="col-8">
                     {{address.streetNumber}} 
                     {{address.streetName}} 
                     {{address.unit}} 
@@ -29,9 +29,13 @@
                     {{address.state}} 
                     {{address.zipCode}}
                 </div>
-                <div class="col-1">
+                <div class="col-2">
                     <button type="button" class="btn btn-primary btn-sm" (click)="edit(address)">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-primary btn-sm" (click)="delete(address)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -88,7 +92,6 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
             <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
         </div>
     </p-footer>

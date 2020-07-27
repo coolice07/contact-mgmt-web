@@ -74,9 +74,9 @@ export class AddressListComponent implements OnInit {
         this.displayDialog = false;
     }
 
-    delete() {
-        const contactId = this.selectedAddress.contactId;
-        const addressId = this.selectedAddress.addressId;
+    delete(address: Address) {
+        const contactId = address.contactId;
+        const addressId = address.addressId;
         
         // call contactService to delete the address
         this.contactService.deleteAddress(contactId, addressId).subscribe({

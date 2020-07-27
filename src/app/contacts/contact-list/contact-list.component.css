@@ -1,3 +1,14 @@
+.card-header {
+    background: rgb(47,100,210);
+    background: linear-gradient(90deg, rgba(47,100,210,1) 0%, rgba(38,70,162,0.9275911048012955) 37%, rgba(65,123,135,1) 100%);
+    color: #fff;
+}
+
 .contact-list-buttons {
     text-align: left;
 }
+
+.contact-list-buttons > button {
+    background-color: rgb(231, 173, 46) !important;
+}
+

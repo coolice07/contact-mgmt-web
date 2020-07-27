@@ -9,7 +9,7 @@
                         <i class="fa fa-phone-square" aria-hidden="true"></i>
                         Communication
                         <button type="button" class="btn btn-primary btn-sm" (click)="add()">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Add
+                            <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>                
                     </h4>
                 </div>
@@ -27,10 +27,14 @@
                     </div>
                 </div>
                 <div class="col-2">Type: {{communication.communicationType}}</div>
-                <div class="col-8">{{communication.communicationValue}} </div>
-                <div class="col-1">
+                <div class="col-7">{{communication.communicationValue}} </div>
+                <div class="col-2">
                     <button type="button" class="btn btn-primary btn-sm" (click)="edit(communication)">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-primary btn-sm" (click)="delete(communication)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -63,7 +67,6 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
             <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
         </div>
     </p-footer>

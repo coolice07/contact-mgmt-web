@@ -21,7 +21,7 @@
                         </button> 
                     </div>
                     <div class="col-6 filter-box">
-                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        <i class="pi pi-search" style="margin:4px 4px 0 0; color: white;"></i>
                         <input type="text" pInputText size="50" placeholder="Filter" 
                             (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                     </div>    
@@ -42,19 +42,21 @@
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr [pSelectableRow]="rowData" >
                     <td *ngFor="let col of columns">
-                        {{rowData[col.field]}}
+                        <span *ngIf="col.field != 'dateOfBirth'">{{rowData[col.field]}}</span>
+                        <!-- if date field, format to the requirement -->
+                        <span *ngIf="col.field == 'dateOfBirth'">{{rowData[col.field] | date:'MM/dd/yyyy'}}</span>
                     </td>
                 </tr>
             </ng-template>
         
         </p-table>
-        
     </div>
 </div>
 
 <!-- Modal form for adding a new contact -->
 
-<p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true" [style]="{width: '400px'}">
+<p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" 
+        showEffect="fade" [modal]="true" [style]="{width: '400px'}">
     <div class="p-grid ui-fluid" *ngIf="newContact">
         <div class="p-col-4">
             <label for="firstName">First Name</label>
@@ -69,16 +71,17 @@
             <input pInputText id="lastName" [(ngModel)]="newContact.lastName" />
         </div>
         <div class="p-col-4">
-            <label for="birthDate">Birth Date</label>
+            <label for="dateOfBirth">Birth Date</label>
         </div>
         <div class="p-col-8">
-            <input pInputText id="birthDate" [(ngModel)]="newContact.birthDate" />
+            <input pInputText id="dateOfBirth" [(ngModel)]="newContact.dateOfBirth" />
         </div>
         <div class="p-col-4">
             <label for="gender">Gender</label>
         </div>
         <div class="p-col-8">
-            <input pInputText id="gender" [(ngModel)]="newContact.gender" />
+            <p-dropdown [options]="genderOptions" [(ngModel)]="selectedGender" (onChange)="onGenderDropdownChange()"
+                placeholder="Gender" optionLabel="name" [showClear]="true"></p-dropdown>
         </div>
         <div class="p-col-4">
             <label for="title">Title</label>

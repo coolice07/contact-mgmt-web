@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { FilterUtils } from 'primeng/utils';
 
@@ -7,16 +7,13 @@ import { ContactService } from '../contact.service';
 
 @Component({
     templateUrl: './contact-list.component.html',
-    styleUrls: ['./contact-list.component.css']
+    styleUrls: ['./contact-list.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class ContactListComponent implements OnInit {
     pageTitle = "Contact Information";
     contacts: Contact[] = [];
     errorMessage: string;
-
-    // for add contact form
-    newContact: Contact;
-    displayDialog: boolean = false;
 
     // primeng content and pagination
     cols: any[];
@@ -28,8 +25,24 @@ export class ContactListComponent implements OnInit {
     contactId: number;
     contactName: string;
 
+    // for add contact form
+    newContact: Contact;
+    displayDialog: boolean = false;
+    genderOptions: Gender[];
+    selectedGender: Gender;
+
+    onGenderDropdownChange() {
+        this.newContact.gender = this.selectedGender.value;
+    }
+
     constructor(private router: Router,
-                private contactService: ContactService) { }
+                private contactService: ContactService) { 
+        this.genderOptions = [
+            { name: "", value: "" },
+            { name: "Female", value: "F" },
+            { name: "Male", value: "M" }
+        ];
+    }
 
     ngOnInit(): void {
 
@@ -40,7 +53,7 @@ export class ContactListComponent implements OnInit {
         this.cols = [
             { field: 'firstName', header: 'First Name' },
             { field: 'lastName', header: 'Last Name' },
-            { field: 'birthDate', header: 'Birth Date' },
+            { field: 'dateOfBirth', header: 'Birth Date' },
             { field: 'gender', header: 'Gender' },
             { field: 'title', header: 'Title' }
         ];
@@ -75,6 +88,7 @@ export class ContactListComponent implements OnInit {
     }
 
     save() {
+        console.log(this.newContact);
         // call contactService to add the new contact
         this.contactService.addContact(this.newContact).subscribe({
             next: address => {
@@ -117,4 +131,9 @@ export class ContactListComponent implements OnInit {
         this.router.navigate([`/contacts/${this.contactId}`]);
     }
 
+}
+
+interface Gender {
+    name: string,
+    value: string
 }

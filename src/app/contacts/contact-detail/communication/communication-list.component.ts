@@ -75,9 +75,9 @@ export class CommunicationListComponent implements OnInit {
         event.preventDefault();
     }
 
-    delete() {
-        const contactId = this.selectedCommunication.contactId;
-        const communicationId = this.selectedCommunication.communicationId;
+    delete(communication: Communication) {
+        const contactId = communication.contactId;
+        const communicationId = communication.communicationId;
         
         // call contactService to delete the communication
         this.contactService.deleteCommunication(contactId, communicationId).subscribe({

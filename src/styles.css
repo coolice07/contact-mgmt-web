@@ -18,3 +18,63 @@
 .filter-box {
     text-align: right;
 }
+
+.btn-primary {
+    background-color: rgb(231, 173, 46) !important;
+    border-color: #fff !important;
+}
+
+
+
+.ui-table .ui-table-caption,
+.ui-table .ui-table-summary {
+    background-color: #3561da !important;
+}
+
+
+.ui-paginator {
+    background-color: #3561da !important;
+    border: 1px solid #3561da !important;
+    color: #fff !important;
+}
+
+.ui-paginator .ui-paginator-first,
+.ui-paginator .ui-paginator-prev,
+.ui-paginator .ui-paginator-next,
+.ui-paginator .ui-paginator-last {
+    color: #fff !important;
+}
+.ui-paginator .ui-paginator-first:not(.ui-state-disabled):not(.ui-state-active):hover,
+.ui-paginator .ui-paginator-prev:not(.ui-state-disabled):not(.ui-state-active):hover,
+.ui-paginator .ui-paginator-next:not(.ui-state-disabled):not(.ui-state-active):hover,
+.ui-paginator .ui-paginator-last:not(.ui-state-disabled):not(.ui-state-active):hover {
+    background-color: rgb(231, 173, 46) !important;
+    color: #fff !important;
+}
+ 
+.ui-paginator .ui-paginator-current {
+    color: #fff !important;
+    height: 2.286em;
+    min-width: 2.286em;
+    line-height: 2.286em;
+}
+
+.ui-paginator .ui-dropdown .ui-dropdown-trigger, body .ui-paginator .ui-dropdown .ui-dropdown-label {
+    color: #fff !important;
+}
+.ui-paginator .ui-dropdown:hover .ui-dropdown-trigger, body .ui-paginator .ui-dropdown:hover .ui-dropdown-label {
+    color: #fff !important;
+}
+
+
+.ui-paginator .ui-paginator-pages .ui-paginator-page {
+    color: #fff !important;
+}
+.ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+    background-color: rgb(231, 173, 46) !important;
+    color: #fff !important;
+}
+.ui-paginator .ui-paginator-pages .ui-paginator-page:not(.ui-state-active):hover {
+    background-color: rgb(224, 187, 106) !important;
+    color: #fff !important;
+}
