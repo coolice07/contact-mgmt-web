@@ -21,13 +21,13 @@
         </p-header>
         <ng-template let-communication pTemplate="listItem">
             <div class="row communication-details">
-                <div class="col-1">
-                    <div *ngIf="communication.preferred == 'Y'">
+                <div class="col-2">
+                    {{communication.communicationType}}
+                    <span *ngIf="communication.preferred == 'Y'">
                         <i class="fa fa-heart" aria-hidden="true"></i>
-                    </div>
+                    </span>
                 </div>
-                <div class="col-2">{{communication.communicationType}}</div>
-                <div class="col-7">{{communication.communicationValue}} </div>
+                <div class="col-8">{{communication.communicationValue}} </div>
                 <div class="col-2">
                     <button type="button" class="btn btn-primary btn-sm" (click)="edit(communication)">
                         <i class="fa fa-pencil" aria-hidden="true"></i>

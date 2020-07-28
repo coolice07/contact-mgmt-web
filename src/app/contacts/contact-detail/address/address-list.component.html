@@ -23,8 +23,8 @@
                 <div class="col-2">{{address.addressType}}</div>
                 <div class="col-8">
                     {{address.streetNumber}} 
-                    <span *ngIf="address.streetName!=null&&address.streetName!=''">{{address.streetName}},</span> 
-                    <span *ngIf="address.unit!=null&&address.unit!=''">Unit# {{address.unit}},</span> 
+                    <span *ngIf="address.streetName!=null&&address.streetName!=''">{{address.streetName}}, </span> 
+                    <span *ngIf="address.unit!=null&&address.unit!=''">Unit# {{address.unit}}, </span> 
                     {{address.city}},
                     {{address.state}} 
                     {{address.zipCode}}
@@ -45,7 +45,7 @@
 
 <!-- Modal form for edit -->
 <p-toast></p-toast>
-<p-dialog header="Communication Details" [(visible)]="displayDialog" [focusOnShow]="false" 
+<p-dialog header="Address Details" [(visible)]="displayDialog" [focusOnShow]="false" 
     showEffect="fade" [modal]="true" [style]="{width: '400px'}">
     <form [formGroup]="addressForm" (ngSubmit)="save(addressForm.value)" *ngIf="selectedAddress">
         <div class="ui-fluid forms-grid dialog" style="margin: 1em 0">
