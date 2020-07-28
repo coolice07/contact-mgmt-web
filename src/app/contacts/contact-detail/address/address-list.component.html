@@ -23,9 +23,9 @@
                 <div class="col-2">{{address.addressType}}</div>
                 <div class="col-8">
                     {{address.streetNumber}} 
-                    {{address.streetName}} 
-                    {{address.unit}} 
-                    {{address.city}} 
+                    <span *ngIf="address.streetName!=null&&address.streetName!=''">{{address.streetName}},</span> 
+                    <span *ngIf="address.unit!=null&&address.unit!=''">Unit# {{address.unit}},</span> 
+                    {{address.city}},
                     {{address.state}} 
                     {{address.zipCode}}
                 </div>
@@ -44,55 +44,58 @@
 </div>
 
 <!-- Modal form for edit -->
-
-<p-dialog header="Address Details" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true" [style]="{width: '400px'}">
-    <div class="p-grid ui-fluid" *ngIf="selectedAddress">
-        <div class="p-col-4">
-            <label for="addressType">Address Type</label>
+<p-toast></p-toast>
+<p-dialog header="Communication Details" [(visible)]="displayDialog" [focusOnShow]="false" 
+    showEffect="fade" [modal]="true" [style]="{width: '400px'}">
+    <form [formGroup]="addressForm" (ngSubmit)="save(addressForm.value)" *ngIf="selectedAddress">
+        <div class="ui-fluid forms-grid dialog" style="margin: 1em 0">
+            <div>
+                <div>Address Type *</div>
+                <!--<p-dropdown [options]="commTypeOptions" formControlName="communicationType"  
+                     placeholder="Required" optionLabel="name" [showClear]="true">
+                </p-dropdown>-->
+                <input pInputText type="text" formControlName="addressType" placeholder="Required"/>
+                <p-message severity="error" text="Address Type is required. Max of 10 chars." 
+                    *ngIf="!addressForm.controls['addressType'].valid&&addressForm.controls['addressType'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Street Number</div>
+                <input pInputText type="text" formControlName="streetNumber"/>
+            </div>
+            <div>
+                <div>Street Name</div>
+                <input pInputText type="text" formControlName="streetName" />
+            </div>
+            <div>
+                <div>Unit</div>
+                <input pInputText type="text" formControlName="unit" />
+            </div>
+            <div>
+                <div>City</div>
+                <input pInputText type="text" formControlName="city" placeholder="Required"/>
+                <p-message severity="error" text="City is required. Max of 20 chars." 
+                    *ngIf="!addressForm.controls['city'].valid&&addressForm.controls['city'].dirty">
+                </p-message>                
+            </div>
+            <div>
+                <div>State</div>
+                <input pInputText type="text" formControlName="state" placeholder="Required"/>
+                <p-message severity="error" text="State is required. Min/Max of 2 chars." 
+                    *ngIf="!addressForm.controls['state'].valid&&addressForm.controls['state'].dirty">
+                </p-message>                   
+            </div>
+            <div>
+                <div>Zip Code</div>
+                <input pInputText type="text" formControlName="zipCode" placeholder="Required"/>
+                <p-message severity="error" text="Zip Code is required. Max of 5 chars." 
+                    *ngIf="!addressForm.controls['zipCode'].valid&&addressForm.controls['zipCode'].dirty">
+                </p-message>                   
+            </div>
+            <div>&nbsp;</div>
+            <div>
+                <button pButton type="submit" label="Submit" [disabled]="!addressForm.valid"></button>
+            </div>
         </div>
-        <div class="p-col-8">
-            <input pInputText id="addressType" [(ngModel)]="selectedAddress.addressType" autofocus />
-        </div>
-        <div class="p-col-4">
-            <label for="streetNumber">Street Number</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="streetNumber" [(ngModel)]="selectedAddress.streetNumber" />
-        </div>
-        <div class="p-col-4">
-            <label for="streetName">Street Name</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="streetName" [(ngModel)]="selectedAddress.streetName" />
-        </div>
-        <div class="p-col-4">
-            <label for="unit">Unit</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="unit" [(ngModel)]="selectedAddress.unit" />
-        </div>
-        <div class="p-col-4">
-            <label for="city">City</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="city" [(ngModel)]="selectedAddress.city" />
-        </div>
-        <div class="p-col-4">
-            <label for="state">State</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="state" [(ngModel)]="selectedAddress.state" />
-        </div>
-        <div class="p-col-4">
-            <label for="zipCode">Zip Code</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="zipCode" [(ngModel)]="selectedAddress.zipCode" />
-        </div>
-    </div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
-        </div>
-    </p-footer>
+    </form>
 </p-dialog>

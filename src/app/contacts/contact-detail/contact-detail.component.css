@@ -14,3 +14,7 @@
     text-align: right;
     padding-top: 5px;
 }
+.dialog {
+    width: 400px; 
+    height: 400px
+}

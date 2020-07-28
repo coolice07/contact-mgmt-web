@@ -20,7 +20,7 @@ export class CommunicationListComponent implements OnInit {
     selectedCommunication: Communication;
     isNewCommunication: boolean = false;
 
-    // for add contact form
+    // for add communication form
     displayDialog: boolean;
     commTypeOptions: CommunicationType[];
     communicationForm: FormGroup;
@@ -43,9 +43,9 @@ export class CommunicationListComponent implements OnInit {
 
         // define the form group and apply any validators
         this.communicationForm = this.fb.group({
-            'communicationType': new FormControl('', [Validators.required]),
+            'communicationType': new FormControl('', [Validators.required, Validators.maxLength(10)]),
             'communicationValue': new FormControl('', [Validators.required, Validators.maxLength(100)]),
-            'preferred' : new FormControl('')
+            'preferred' : new FormControl('',  Validators.maxLength(1))
         });
     }
 
@@ -61,15 +61,20 @@ export class CommunicationListComponent implements OnInit {
     }
 
     add() {
-        this.displayDialog = true;
         this.selectedCommunication = {};
+        this.communicationForm.reset();
         this.isNewCommunication = true;
+        this.displayDialog = true;
     }
 
     edit(communication: Communication) {
         this.selectedCommunication = communication;
-        this.displayDialog = true;
+        this.communicationForm.controls['communicationType'].setValue(communication.communicationType);
+        this.communicationForm.controls['communicationValue'].setValue(communication.communicationValue);
+        this.communicationForm.controls['preferred'].setValue(communication.preferred);
+
         this.isNewCommunication = false;
+        this.displayDialog = true;
     }
 
     save(formValue: any) {
@@ -78,7 +83,7 @@ export class CommunicationListComponent implements OnInit {
 
         if (this.isNewCommunication) {
             // translate form values to Communication object
-            let newCommunication = {
+            let newCommunication: Communication = {
                 communicationType: formValue.communicationType,
                 communicationValue: formValue.communicationValue,
                 preferred: formValue.preferred

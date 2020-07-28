@@ -53,23 +53,21 @@
                 <!--<p-dropdown [options]="commTypeOptions" formControlName="communicationType"  
                      placeholder="Required" optionLabel="name" [showClear]="true">
                 </p-dropdown>-->
-                <input pInputText type="text" formControlName="communicationType" 
-                    placeholder="Required" [(ngModel)]="selectedCommunication.communicationType" />
-                <p-message severity="error" text="Communication Type is required" 
+                <input pInputText type="text" formControlName="communicationType" placeholder="Required" />
+                <p-message severity="error" text="Communication Type is required. Max of 10 chars." 
                     *ngIf="!communicationForm.controls['communicationType'].valid&&communicationForm.controls['communicationType'].dirty">
                 </p-message>
             </div>
             <div>
                 <div>Communication Value *</div>
-                <input pInputText type="text" formControlName="communicationValue" 
-                    placeholder="Required" [(ngModel)]="selectedCommunication.communicationValue"/>
-                <p-message severity="error" text="Communication Value is required" 
+                <input pInputText type="text" formControlName="communicationValue" placeholder="Required"/>
+                <p-message severity="error" text="Communication Value is required. Max of 10 chars." 
                     *ngIf="!communicationForm.controls['communicationValue'].valid&&communicationForm.controls['communicationValue'].dirty">
                 </p-message>
             </div>
             <div>
                 <div>Preferred</div>
-                <input pInputText type="text" formControlName="preferred" [(ngModel)]="selectedCommunication.preferred"/>
+                <input pInputText type="text" formControlName="preferred"/>
             </div>
             <div>&nbsp;</div>
             <div>

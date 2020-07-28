@@ -109,7 +109,7 @@ export class ContactListComponent implements OnInit {
             firstName: formValue.firstName,
             lastName: formValue.lastName,
             dateOfBirth: moment(formValue.dateOfBirth).format('YYYY-MM-DD').toString(),
-            gender: formValue.gender == null ? " " : formValue.gender.code,
+            gender: formValue.gender,
             title: formValue.title
         };
 
@@ -153,7 +153,6 @@ export class ContactListComponent implements OnInit {
 
     onRowSelect(event) {
         this.contactId = event.data.contactId;
-        // this.contactName = event.data.firstName + " " + event.data.lastName;
         this.router.navigate([`/contacts/${this.contactId}`]);
     }
 }
