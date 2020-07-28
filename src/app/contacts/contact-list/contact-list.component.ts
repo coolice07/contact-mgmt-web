@@ -1,14 +1,18 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
 import { FilterUtils } from 'primeng/utils';
+import { MessageService } from 'primeng/api';
+import * as moment from 'moment';
 
 import { Contact } from '../contact';
 import { ContactService } from '../contact.service';
 
+
 @Component({
     templateUrl: './contact-list.component.html',
     styleUrls: ['./contact-list.component.css'],
-    encapsulation: ViewEncapsulation.None
+    providers: [MessageService]
 })
 export class ContactListComponent implements OnInit {
     pageTitle = "Contact Information";
@@ -26,22 +30,16 @@ export class ContactListComponent implements OnInit {
     contactName: string;
 
     // for add contact form
-    newContact: Contact;
     displayDialog: boolean = false;
+    submitted: boolean = false;
     genderOptions: Gender[];
-    selectedGender: Gender;
+    contactForm: FormGroup;
 
-    onGenderDropdownChange() {
-        this.newContact.gender = this.selectedGender.value;
-    }
-
-    constructor(private router: Router,
+    constructor(private router: Router, 
+                private fb: FormBuilder,
+                private messageService: MessageService,
                 private contactService: ContactService) { 
-        this.genderOptions = [
-            { name: "", value: "" },
-            { name: "Female", value: "F" },
-            { name: "Male", value: "M" }
-        ];
+
     }
 
     ngOnInit(): void {
@@ -63,13 +61,27 @@ export class ContactListComponent implements OnInit {
             if (filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
-    
             if (value === undefined || value === null) {
                 return false;
             }
-            
             return parseInt(filter) > value;
         }
+
+        // populate the gender options
+        this.genderOptions = [
+            { name: "", code: "" },
+            { name: "Female", code: "F" },
+            { name: "Male", code: "M" }
+        ];
+
+        // define the form group and apply any validators
+        this.contactForm = this.fb.group({
+            'firstName': new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+            'lastName': new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+            'dateOfBirth': new FormControl('', [Validators.required]),
+            'gender' : new FormControl(''),
+            'title' : new FormControl('')
+        });
     }
 
     getContactList() {
@@ -83,22 +95,36 @@ export class ContactListComponent implements OnInit {
     }
 
     add() {
-        this.newContact = {};
+        // toggle the dialog modal
         this.displayDialog = true;
+
+        // reset form controls
+        this.contactForm.reset();
+        this.submitted = false;
     }
 
-    save() {
-        console.log(this.newContact);
+    save(formValue: any) {
+        // translate form values to Contact object. apply any formatting needed
+        let newContact: Contact = {
+            firstName: formValue.firstName,
+            lastName: formValue.lastName,
+            dateOfBirth: moment(formValue.dateOfBirth).format('YYYY-MM-DD').toString(),
+            gender: formValue.gender == null ? " " : formValue.gender.code,
+            title: formValue.title
+        };
+
         // call contactService to add the new contact
-        this.contactService.addContact(this.newContact).subscribe({
+        this.contactService.addContact(newContact).subscribe({
             next: address => {
                 // refresh the contact list
                 this.getContactList();
+                this.submitted = true;
             },
             error: err => this.errorMessage = err
         });
 
         this.displayDialog = false;
+        this.messageService.add({severity:'info', summary:'Success', detail:'New contact added.', sticky: true});
     }
 
     // **************************
@@ -130,10 +156,13 @@ export class ContactListComponent implements OnInit {
         // this.contactName = event.data.firstName + " " + event.data.lastName;
         this.router.navigate([`/contacts/${this.contactId}`]);
     }
-
 }
+
+// **************************
+// object for form
+// **************************
 
 interface Gender {
     name: string,
-    value: string
+    code: string
 }

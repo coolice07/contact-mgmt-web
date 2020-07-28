@@ -54,45 +54,45 @@
 </div>
 
 <!-- Modal form for adding a new contact -->
-
+<p-toast></p-toast>
 <p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" 
-        showEffect="fade" [modal]="true" [style]="{width: '400px'}">
-    <div class="p-grid ui-fluid" *ngIf="newContact">
-        <div class="p-col-4">
-            <label for="firstName">First Name</label>
+    [responsive]="true" showEffect="fade" [modal]="true" >
+    
+    <form [formGroup]="contactForm" (ngSubmit)="save(contactForm.value)">
+        <div class="ui-fluid forms-grid dialog" style="margin: 1em 0">
+            <div>
+                <div>First Name *</div>
+                <input pInputText type="text" formControlName="firstName" placeholder="Required"/>
+                <p-message severity="error" text="Firstname is required" 
+                    *ngIf="!contactForm.controls['firstName'].valid&&contactForm.controls['firstName'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Last Name *</div>
+                <input pInputText type="text" formControlName="lastName" placeholder="Required"/>
+                <p-message severity="error" text="Lastname is required" 
+                    *ngIf="!contactForm.controls['lastName'].valid&&contactForm.controls['lastName'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Date of Birth *</div>
+                <p-calendar formControlName="dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2020"></p-calendar>
+                <p-message severity="error" text="Date of Birth is required" 
+                    *ngIf="!contactForm.controls['dateOfBirth'].valid&&contactForm.controls['dateOfBirth'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Gender</div>
+                <p-dropdown [options]="genderOptions" formControlName="gender" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+            <div>
+                <div>Title</div>
+                <input pInputText type="text" formControlName="title"/>
+            </div>
+            <div>&nbsp;</div>
+            <div>
+                <button pButton type="submit" label="Submit" [disabled]="!contactForm.valid"></button>
+            </div>
         </div>
-        <div class="p-col-8">
-            <input pInputText id="firstName" [(ngModel)]="newContact.firstName" autofocus />
-        </div>
-        <div class="p-col-4">
-            <label for="lastName">Last Name</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="lastName" [(ngModel)]="newContact.lastName" />
-        </div>
-        <div class="p-col-4">
-            <label for="dateOfBirth">Birth Date</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="dateOfBirth" [(ngModel)]="newContact.dateOfBirth" />
-        </div>
-        <div class="p-col-4">
-            <label for="gender">Gender</label>
-        </div>
-        <div class="p-col-8">
-            <p-dropdown [options]="genderOptions" [(ngModel)]="selectedGender" (onChange)="onGenderDropdownChange()"
-                placeholder="Gender" optionLabel="name" [showClear]="true"></p-dropdown>
-        </div>
-        <div class="p-col-4">
-            <label for="title">Title</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="title" [(ngModel)]="newContact.title" />
-        </div>
-    </div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
-        </div>
-    </p-footer>
+    </form>
 </p-dialog>

@@ -8,7 +8,7 @@
     text-align: left;
 }
 
-.contact-list-buttons > button {
-    background-color: rgb(231, 173, 46) !important;
+.dialog {
+    width: 400px; 
+    height: 400px
 }
-
