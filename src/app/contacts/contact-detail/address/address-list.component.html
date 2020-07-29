@@ -54,47 +54,49 @@
                 <!--<p-dropdown [options]="commTypeOptions" formControlName="communicationType"  
                      placeholder="Required" optionLabel="name" [showClear]="true">
                 </p-dropdown>-->
-                <input pInputText type="text" formControlName="addressType" placeholder="Required"/>
+                <input pInputText type="text" formControlName="addressType" placeholder="Home, Work, etc (max 10 chars)"/>
                 <p-message severity="error" text="Address Type is required. Max of 10 chars." 
                     *ngIf="!addressForm.controls['addressType'].valid&&addressForm.controls['addressType'].dirty">
                 </p-message>
             </div>
             <div>
                 <div>Street Number</div>
-                <input pInputText type="text" formControlName="streetNumber"/>
+                <p-inputNumber mode="decimal" [useGrouping]="false" maxlength="5" formControlName="streetNumber" >
+                </p-inputNumber>
             </div>
             <div>
                 <div>Street Name</div>
                 <input pInputText type="text" formControlName="streetName" />
             </div>
             <div>
-                <div>Unit</div>
+                <div>Unit Number</div>
                 <input pInputText type="text" formControlName="unit" />
             </div>
             <div>
-                <div>City</div>
-                <input pInputText type="text" formControlName="city" placeholder="Required"/>
+                <div>City *</div>
+                <input pInputText type="text" formControlName="city" placeholder="Max 20 chars"/>
                 <p-message severity="error" text="City is required. Max of 20 chars." 
                     *ngIf="!addressForm.controls['city'].valid&&addressForm.controls['city'].dirty">
                 </p-message>                
             </div>
             <div>
-                <div>State</div>
-                <input pInputText type="text" formControlName="state" placeholder="Required"/>
+                <div>State *</div>
+                <input pInputText type="text" formControlName="state" placeholder="Min/Max of 2 chars"/>
                 <p-message severity="error" text="State is required. Min/Max of 2 chars." 
                     *ngIf="!addressForm.controls['state'].valid&&addressForm.controls['state'].dirty">
                 </p-message>                   
             </div>
             <div>
-                <div>Zip Code</div>
-                <input pInputText type="text" formControlName="zipCode" placeholder="Required"/>
+                <div>Zip Code *</div>
+                <p-inputNumber mode="decimal" [useGrouping]="false" maxlength="5" formControlName="zipCode" >
+                </p-inputNumber>                
                 <p-message severity="error" text="Zip Code is required. Max of 5 chars." 
                     *ngIf="!addressForm.controls['zipCode'].valid&&addressForm.controls['zipCode'].dirty">
                 </p-message>                   
             </div>
             <div>&nbsp;</div>
             <div>
-                <button pButton type="submit" label="Submit" [disabled]="!addressForm.valid"></button>
+                <button pButton type="submit" label="Save" [disabled]="!addressForm.valid"></button>
             </div>
         </div>
     </form>

@@ -53,25 +53,27 @@
                 <!--<p-dropdown [options]="commTypeOptions" formControlName="communicationType"  
                      placeholder="Required" optionLabel="name" [showClear]="true">
                 </p-dropdown>-->
-                <input pInputText type="text" formControlName="communicationType" placeholder="Required" />
+                <input pInputText type="text" formControlName="communicationType" placeholder="Phone, Email, etc. (max of 10 chars)" />
                 <p-message severity="error" text="Communication Type is required. Max of 10 chars." 
                     *ngIf="!communicationForm.controls['communicationType'].valid&&communicationForm.controls['communicationType'].dirty">
                 </p-message>
             </div>
             <div>
                 <div>Communication Value *</div>
-                <input pInputText type="text" formControlName="communicationValue" placeholder="Required"/>
+                <input pInputText type="text" formControlName="communicationValue" placeholder="Max of 10 chars"/>
                 <p-message severity="error" text="Communication Value is required. Max of 10 chars." 
                     *ngIf="!communicationForm.controls['communicationValue'].valid&&communicationForm.controls['communicationValue'].dirty">
                 </p-message>
             </div>
+            <div>&nbsp;</div>
             <div>
-                <div>Preferred</div>
-                <input pInputText type="text" formControlName="preferred"/>
+                <p-toggleButton formControlName="preferred" onLabel="Preferred" offLabel="Preferred" 
+                    onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'120px'}"></p-toggleButton>
+                <!--<input pInputText type="text" formControlName="preferred"/>-->
             </div>
             <div>&nbsp;</div>
             <div>
-                <button pButton type="submit" label="Submit" [disabled]="!communicationForm.valid"></button>
+                <button pButton type="submit" label="Save" [disabled]="!communicationForm.valid"></button>
             </div>
         </div>
     </form>

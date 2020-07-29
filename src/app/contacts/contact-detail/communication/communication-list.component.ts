@@ -71,7 +71,7 @@ export class CommunicationListComponent implements OnInit {
         this.selectedCommunication = communication;
         this.communicationForm.controls['communicationType'].setValue(communication.communicationType);
         this.communicationForm.controls['communicationValue'].setValue(communication.communicationValue);
-        this.communicationForm.controls['preferred'].setValue(communication.preferred);
+        this.communicationForm.controls['preferred'].setValue(communication.preferred == 'Y' ? true : false);
 
         this.isNewCommunication = false;
         this.displayDialog = true;
@@ -80,13 +80,13 @@ export class CommunicationListComponent implements OnInit {
     save(formValue: any) {
 
         // TODO need elegant way to translate form values to comm object
-
+        
         if (this.isNewCommunication) {
             // translate form values to Communication object
             let newCommunication: Communication = {
                 communicationType: formValue.communicationType,
                 communicationValue: formValue.communicationValue,
-                preferred: formValue.preferred
+                preferred: formValue.preferred ? 'Y' : 'N'
             };
 
             // call contactService to add the communication
@@ -97,15 +97,19 @@ export class CommunicationListComponent implements OnInit {
                     this.getCommunications();
                     this.messageService.add({severity:'info', summary:'Success', detail:'New communication added.', sticky: true});
                 },
-                error: err => this.errorMessage = err
+                error: err => {
+                    this.errorMessage = err;
+                    this.messageService.add({severity:'error', summary:'Failed', detail:'Failed to add communication.', sticky: true});
+                }
             });
         }
         else {
+            console.log(formValue);
             // translate form values to Communication object
             this.selectedCommunication = {
                 communicationType: formValue.communicationType,
                 communicationValue: formValue.communicationValue,
-                preferred: formValue.preferred,
+                preferred: formValue.preferred ? 'Y' : 'N',
                 communicationId: this.selectedCommunication.communicationId,
                 contactId: this.selectedCommunication.contactId
             };
@@ -118,7 +122,10 @@ export class CommunicationListComponent implements OnInit {
                     this.getCommunications();
                     this.messageService.add({severity:'info', summary:'Success', detail:'Communication updated.', sticky: true});
                 },
-                error: err => this.errorMessage = err
+                error: err => {
+                    this.errorMessage = err;
+                    this.messageService.add({severity:'error', summary:'Failed', detail:'Failed to update communication.', sticky: true});
+                }
             });
         }
 
@@ -137,7 +144,10 @@ export class CommunicationListComponent implements OnInit {
                 this.getCommunications();
                 this.messageService.add({severity:'info', summary:'Success', detail:'Communication deleted.', sticky: true});
             },
-            error: err => this.errorMessage = err
+            error: err => {
+                this.errorMessage = err;
+                this.messageService.add({severity:'error', summary:'Failed', detail:'Failed to delete communication.', sticky: true});
+            }            
         });
 
         this.displayDialog = false;

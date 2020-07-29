@@ -22,6 +22,7 @@ export class ContactDetailComponent implements OnInit {
     displayDialog: boolean = false;
     submitted: boolean = false;
     contactForm: FormGroup;
+    genderOptions: Gender[];
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -47,6 +48,13 @@ export class ContactDetailComponent implements OnInit {
             'gender' : new FormControl(''),
             'title' : new FormControl('')
         });
+
+        // populate the gender options
+        this.genderOptions = [
+            { name: "", code: "" },
+            { name: "Female", code: "F" },
+            { name: "Male", code: "M" }
+        ];
     }
 
     // Get selected contact's details from api
@@ -86,7 +94,10 @@ export class ContactDetailComponent implements OnInit {
                 this.contact = contact;
                 this.messageService.add({severity:'info', summary:'Success', detail:'Contact updated.', sticky: true});
             },
-            error: err => this.errorMessage = err
+            error: err => {
+                this.errorMessage = err;
+                this.messageService.add({severity:'error', summary:'Failed', detail:'Failed to update contact.', sticky: true});
+            }
         });
 
         this.displayDialog = false;
@@ -96,7 +107,10 @@ export class ContactDetailComponent implements OnInit {
         // call contactService to edit the contact
         this.contactService.deleteContact(this.contactId).subscribe({
             next: () => this.router.navigate([`/contacts`]),
-            error: err => this.errorMessage = err
+            error: err => {
+                this.errorMessage = err;
+                this.messageService.add({severity:'error', summary:'Failed', detail:'Failed to delete contact.', sticky: true});
+            }
         });
     }
 
@@ -104,4 +118,13 @@ export class ContactDetailComponent implements OnInit {
         this.router.navigate([`/contacts`]);
     }
 
+}
+
+// **************************
+// object for form
+// **************************
+
+interface Gender {
+    name: string,
+    code: string
 }

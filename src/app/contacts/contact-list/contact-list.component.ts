@@ -119,12 +119,16 @@ export class ContactListComponent implements OnInit {
                 // refresh the contact list
                 this.getContactList();
                 this.submitted = true;
+                this.messageService.add({severity:'info', summary:'Success', detail:'New contact added.', sticky: true});
             },
-            error: err => this.errorMessage = err
+            error: err => {
+                this.errorMessage = err;
+                this.messageService.add({severity:'error', summary:'Failed', detail:'Failed to add contact.', sticky: true});
+            }
         });
 
         this.displayDialog = false;
-        this.messageService.add({severity:'info', summary:'Success', detail:'New contact added.', sticky: true});
+        
     }
 
     // **************************

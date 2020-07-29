@@ -83,8 +83,9 @@
             </div>
             <div>
                 <div>Gender</div>
-                <input pInputText type="text" formControlName="gender"/>
-                <!--<p-dropdown [options]="genderOptions" formControlName="gender" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>-->
+                <p-inputMask mask="a" formControlName="gender" placeholder="1 char only"></p-inputMask>
+                <!--<input pInputText type="text" formControlName="gender"/>
+                <p-dropdown [options]="genderOptions" formControlName="gender" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>-->
             </div>
             <div>
                 <div>Title</div>
@@ -92,7 +93,7 @@
             </div>
             <div>&nbsp;</div>
             <div>
-                <button pButton type="submit" label="Submit" [disabled]="!contactForm.valid"></button>
+                <button pButton type="submit" label="Save" [disabled]="!contactForm.valid"></button>
             </div>
         </div>
     </form>

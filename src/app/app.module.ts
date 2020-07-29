@@ -17,6 +17,9 @@ import {InputTextModule} from 'primeng/inputtext';
 import {ToastModule} from 'primeng/toast';
 import {MessageModule} from 'primeng/message';
 import {CalendarModule} from 'primeng/calendar';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {InputMaskModule} from 'primeng/inputmask';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
@@ -41,13 +44,16 @@ import { CommunicationListComponent } from './contacts/contact-detail/communicat
     DialogModule,
     DropdownModule,
     InputTextModule,
+    InputNumberModule,
     ButtonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     ToastModule,
     CalendarModule,
-    MessageModule
+    MessageModule,
+    InputMaskModule,
+    ToggleButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

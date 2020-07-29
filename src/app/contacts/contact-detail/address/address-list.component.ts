@@ -97,7 +97,10 @@ export class AddressListComponent implements OnInit {
                     this.getAddresses();
                     this.messageService.add({severity:'info', summary:'Success', detail:'New address added.', sticky: true});
                 },
-                error: err => this.errorMessage = err
+                error: err => {
+                    this.errorMessage = err;
+                    this.messageService.add({severity:'error', summary:'Failed', detail:'Failed to add address.', sticky: true});
+                }
             });
         }
         else {
@@ -122,7 +125,10 @@ export class AddressListComponent implements OnInit {
                     this.getAddresses();
                     this.messageService.add({severity:'info', summary:'Success', detail:'Address updated.', sticky: true});
                 },
-                error: err => this.errorMessage = err
+                error: err => {
+                    this.errorMessage = err;
+                    this.messageService.add({severity:'error', summary:'Failed', detail:'Failed to edit address.', sticky: true});
+                }
             });
         }
 
@@ -140,7 +146,10 @@ export class AddressListComponent implements OnInit {
                 this.getAddresses();
                 this.messageService.add({severity:'info', summary:'Success', detail:'Address deleted.', sticky: true});
             },
-            error: err => this.errorMessage = err
+            error: err => {
+                this.errorMessage = err;
+                this.messageService.add({severity:'error', summary:'Failed', detail:'Failed to delete address.', sticky: true});
+            }
         });
 
         this.displayDialog = false;
