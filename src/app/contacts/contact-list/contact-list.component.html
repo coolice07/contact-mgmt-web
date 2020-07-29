@@ -1,23 +1,36 @@
 <!-- Contact List -->
 <div class="card">
     <div class="card-header">
-        Placeholder for logo or company title
+        <h4>
+            <i class="fa fa-superpowers" aria-hidden="true"></i>
+            ACME Company
+        </h4>
     </div>
     <div class="card-body">
-        <h3>{{ pageTitle }}</h3>
+        <h3>
+            <i class="fa fa-address-book" aria-hidden="true"></i>
+            {{ pageTitle }}
+        </h3>
     </div>
     <div class="table-responsive">
         <p-table #dt [columns]="cols" [value]="contacts" 
             selectionMode="single" [(selection)]="selectedContact" (onRowSelect)="onRowSelect($event)"
-            [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+            [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
 
             <!-- Global Filter -->
             <ng-template pTemplate="caption">
-                <div style="text-align: left">
-                    <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder="Filter" 
-                        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                <div class="row" >
+                    <div class="col-6 contact-list-buttons">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="add()">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add New Contact
+                        </button> 
+                    </div>
+                    <div class="col-6 filter-box">
+                        <i class="pi pi-search" style="margin:4px 4px 0 0; color: white;"></i>
+                        <input type="text" pInputText size="50" placeholder="Filter" 
+                            (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>    
                 </div>
             </ng-template>
 
@@ -35,12 +48,59 @@
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr [pSelectableRow]="rowData" >
                     <td *ngFor="let col of columns">
-                        {{rowData[col.field]}}
+                        <span *ngIf="col.field != 'dateOfBirth'">{{rowData[col.field]}}</span>
+                        <!-- if date field, format to the requirement -->
+                        <span *ngIf="col.field == 'dateOfBirth'">{{rowData[col.field] | date:'MM/dd/yyyy'}}</span>
                     </td>
                 </tr>
             </ng-template>
         
         </p-table>
-        
     </div>
 </div>
+
+<!-- Modal form for adding a new contact -->
+<p-toast></p-toast>
+<p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" 
+    [responsive]="true" showEffect="fade" [modal]="true" >
+    
+    <form [formGroup]="contactForm" (ngSubmit)="save(contactForm.value)">
+        <div class="ui-fluid forms-grid dialog" style="margin: 1em 0">
+            <div>
+                <div>First Name *</div>
+                <input pInputText type="text" formControlName="firstName" placeholder="Required"/>
+                <p-message severity="error" text="Firstname is required" 
+                    *ngIf="!contactForm.controls['firstName'].valid&&contactForm.controls['firstName'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Last Name *</div>
+                <input pInputText type="text" formControlName="lastName" placeholder="Required"/>
+                <p-message severity="error" text="Lastname is required" 
+                    *ngIf="!contactForm.controls['lastName'].valid&&contactForm.controls['lastName'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Date of Birth *</div>
+                <p-calendar formControlName="dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2020"></p-calendar>
+                <p-message severity="error" text="Date of Birth is required" 
+                    *ngIf="!contactForm.controls['dateOfBirth'].valid&&contactForm.controls['dateOfBirth'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Gender</div>
+                <p-inputMask mask="a" formControlName="gender" placeholder="1 char only"></p-inputMask>
+                <!--<input pInputText type="text" formControlName="gender"/>
+                <p-dropdown [options]="genderOptions" formControlName="gender" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>-->
+            </div>
+            <div>
+                <div>Title</div>
+                <input pInputText type="text" formControlName="title"/>
+            </div>
+            <div>&nbsp;</div>
+            <div>
+                <button pButton type="submit" label="Save" [disabled]="!contactForm.valid"></button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

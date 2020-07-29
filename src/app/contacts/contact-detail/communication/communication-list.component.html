@@ -4,13 +4,16 @@
         filterBy="communicationType,communicationValue,preferred">
         <p-header>
             <div class="row">
-                <div class="col-4">
+                <div class="col-6">
                     <h4>
                         <i class="fa fa-phone-square" aria-hidden="true"></i>
                         Communication
+                        <button type="button" class="btn btn-primary btn-sm" (click)="add()">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>                
                     </h4>
                 </div>
-                <div class="col-8">
+                <div class="col-6 filter-box">
                     <input type="search" pInputText placeholder="Filter" 
                     (input)="dv.filter($event.target.value)">
                 </div>
@@ -18,19 +21,60 @@
         </p-header>
         <ng-template let-communication pTemplate="listItem">
             <div class="row communication-details">
-                <div class="col-1">
-                    <button type="button" class="btn btn-primary btn-sm" (click)="onEdit($event, communication)">
+                <div class="col-2">
+                    {{communication.communicationType}}
+                    <span *ngIf="communication.preferred == 'Y'">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="col-8">{{communication.communicationValue}} </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="edit(communication)">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                </div>
-                <div class="col-2">Type: {{communication.communicationType}}</div>
-                <div class="col-4">{{communication.communicationValue}} </div>
-                <div class="col-4">
-                    <div *ngIf="communication.preferred == 'Y'">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
+                    &nbsp;
+                    <button type="button" class="btn btn-primary btn-sm" (click)="delete(communication)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </ng-template>
     </p-dataView>    
 </div>
+
+<!-- Modal form for edit -->
+<p-toast></p-toast>
+<p-dialog header="Communication Details" [(visible)]="displayDialog" [focusOnShow]="false" 
+    showEffect="fade" [modal]="true" [style]="{width: '400px'}">
+    <form [formGroup]="communicationForm" (ngSubmit)="save(communicationForm.value)" *ngIf="selectedCommunication">
+        <div class="ui-fluid forms-grid dialog" style="margin: 1em 0">
+            <div>
+                <div>Communication Type *</div>
+                <!--<p-dropdown [options]="commTypeOptions" formControlName="communicationType"  
+                     placeholder="Required" optionLabel="name" [showClear]="true">
+                </p-dropdown>-->
+                <input pInputText type="text" formControlName="communicationType" placeholder="Phone, Email, etc. (max of 10 chars)" />
+                <p-message severity="error" text="Communication Type is required. Max of 10 chars." 
+                    *ngIf="!communicationForm.controls['communicationType'].valid&&communicationForm.controls['communicationType'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Communication Value *</div>
+                <input pInputText type="text" formControlName="communicationValue" placeholder="Max of 10 chars"/>
+                <p-message severity="error" text="Communication Value is required. Max of 10 chars." 
+                    *ngIf="!communicationForm.controls['communicationValue'].valid&&communicationForm.controls['communicationValue'].dirty">
+                </p-message>
+            </div>
+            <div>&nbsp;</div>
+            <div>
+                <p-toggleButton formControlName="preferred" onLabel="Preferred" offLabel="Preferred" 
+                    onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'120px'}"></p-toggleButton>
+                <!--<input pInputText type="text" formControlName="preferred"/>-->
+            </div>
+            <div>&nbsp;</div>
+            <div>
+                <button pButton type="submit" label="Save" [disabled]="!communicationForm.valid"></button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

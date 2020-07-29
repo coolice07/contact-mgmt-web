@@ -1,18 +1,25 @@
 <div class="card">
     <div class="card-header">
-        Placeholder for logo or company title
+        <h4>
+            <i class="fa fa-superpowers" aria-hidden="true"></i>
+            ACME Company
+        </h4>
     </div>    
     <div class="card-body" *ngIf="contact">
         <div class="row">
             <div class="col-6">
                 <div class="row">
                     <div class="col-6 page-header">
-                        <i class="fa fa-address-book" aria-hidden="true"></i>
-                        Contact Details
+                        <i class="fa fa-address-card" aria-hidden="true"></i>
+                        Contact
                     </div>
-                    <div class="col-6 edit-button">
-                        <button type="button" class="btn btn-primary btn-sm" (click)="edit($event, contact)">
+                    <div class="col-6 contact-buttons">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="edit(contact)">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary btn-sm" (click)="delete(contact)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
@@ -27,7 +34,7 @@
             <div class="col-2">Name:</div>
             <div class="col-10"> {{contact.firstName}} {{contact.lastName}}</div>
             <div class="col-2">Birth Date:</div>
-            <div class="col-10">{{contact.birthDate}}</div>
+            <div class="col-10">{{contact.dateOfBirth | date:'MM/dd/yyyy' }}</div>
             <div class="col-2">Gender:</div>
             <div class="col-10">{{contact.gender}}</div>
             <div class="col-2">Title:</div>
@@ -44,43 +51,48 @@
     </div>
 </div>
 
-<p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
-    <div class="p-grid ui-fluid" *ngIf="contact">
-        <div class="p-col-4">
-            <label for="firstName">First Name</label>
+<!-- Modal form for edit -->
+<p-toast></p-toast>
+<p-dialog header="Contact Details" [(visible)]="displayDialog" [focusOnShow]="false" 
+    [responsive]="true" showEffect="fade" [modal]="true" >
+    
+    <form [formGroup]="contactForm" (ngSubmit)="save(contactForm.value)">
+        <div class="ui-fluid forms-grid dialog" style="margin: 1em 0">
+            <div>
+                <div>First Name *</div>
+                <input pInputText type="text" formControlName="firstName" placeholder="Required"/>
+                <p-message severity="error" text="Firstname is required" 
+                    *ngIf="!contactForm.controls['firstName'].valid&&contactForm.controls['firstName'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Last Name *</div>
+                <input pInputText type="text" formControlName="lastName" placeholder="Required"/>
+                <p-message severity="error" text="Lastname is required" 
+                    *ngIf="!contactForm.controls['lastName'].valid&&contactForm.controls['lastName'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Date of Birth *</div>
+                <p-calendar formControlName="dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2020"></p-calendar>
+                <p-message severity="error" text="Date of Birth is required" 
+                    *ngIf="!contactForm.controls['dateOfBirth'].valid&&contactForm.controls['dateOfBirth'].dirty">
+                </p-message>
+            </div>
+            <div>
+                <div>Gender</div>
+                <p-inputMask mask="a" formControlName="gender" placeholder="1 char only"></p-inputMask>
+                <!--<input pInputText type="text" formControlName="gender"/>
+                <p-dropdown [options]="genderOptions" formControlName="gender" placeholder="" optionLabel="name" [showClear]="true"></p-dropdown>-->
+            </div>
+            <div>
+                <div>Title</div>
+                <input pInputText type="text" formControlName="title"/>
+            </div>
+            <div>&nbsp;</div>
+            <div>
+                <button pButton type="submit" label="Save" [disabled]="!contactForm.valid"></button>
+            </div>
         </div>
-        <div class="p-col-8">
-            <input pInputText id="firstName" [(ngModel)]="contact.firstName" autofocus />
-        </div>
-        <div class="p-col-4">
-            <label for="year">Last Name</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="lastName" [(ngModel)]="contact.lastName" />
-        </div>
-        <div class="p-col-4">
-            <label for="brand">Birth Date</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="birthDate" [(ngModel)]="contact.birthDate" />
-        </div>
-        <div class="p-col-4">
-            <label for="color">Gender</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="gender" [(ngModel)]="contact.gender" />
-        </div>
-        <div class="p-col-4">
-            <label for="color">Title</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="title" [(ngModel)]="contact.title" />
-        </div>
-    </div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
-            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
-        </div>
-    </p-footer>
+    </form>
 </p-dialog>

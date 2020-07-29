@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseApiUrl: `http://localhost:8080/contactmanagement/v1`
+  baseApiUrl: `http://localhost:8090/contactmanagement/v1`
 };
 
 /*
