@@ -30,6 +30,9 @@ Github Location: [https://github.com/coolice07/contact-mgmt-web.git](https://git
 
 5. Make sure API (http://localhost:8090/contactmanagement/v1/health) is running to be able to see data.
 
+# Documentation
+
+This is a Minimum Viable Product (MVP) to demonstrate a web application that can consume an API. PrimeNG is used as UI library for my own education and to speed up the UI development. Below are a list of available features and yet-to-be implemented features.
 
 ## Features
 
@@ -63,6 +66,29 @@ Github Location: [https://github.com/coolice07/contact-mgmt-web.git](https://git
 * Edit a communication
 * Delete a communication
 
+
+## TO-DO's
+
+These are future features that can be implemented.
+
+### Contacts
+* Confirm delete before deleting record.
+* Make `Gender` dropdown if expecting only certain values.
+
+### Addresses
+* Confirm delete before deleting record. 
+* Make `Address Type` dropdown if expecting only certain values.
+* Make `City` and `State` a lookup.
+
+### Communications
+* Confirm delete before deleting record. 
+* Put validations (regex?) for Communication Value depending on Communication Type (e.g., if email, should follow format a@a.aaa, etc.).
+
+### Others
+* Apply server-side pagination, sort and filter.
+* Fix styling.
+* Apply CI/CD.
+* Containerize and deploy in Nginx.
 
 
 
