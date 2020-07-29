@@ -87,6 +87,7 @@ These are future features that can be implemented.
 ### Others
 * Apply server-side pagination, sort and filter.
 * Fix styling.
+* Login and authentication.
 * Apply CI/CD.
 * Containerize and deploy in Nginx.
 
