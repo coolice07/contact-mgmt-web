@@ -1,27 +1,95 @@
-# ContactMgmtWeb
+# Contact Management Web
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.2.
+## Tech Stack:
 
-## Development server
+* Angular
+* Node.js
+* PrimeNG
+* Bootstrap
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Installation and Running Instructions
 
-## Code scaffolding
+## Pre-requisite
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Visual Studio Code (VSCode)
+* Angular
+* Node.js
+* A running instance of **Contact Management API** (for details, refer to [https://github.com/coolice07/contact-mgmt-api.git](https://github.com/coolice07/contact-mgmt-api.git))
 
-## Build
+Github Location: [https://github.com/coolice07/contact-mgmt-web.git](https://github.com/coolice07/contact-mgmt-web.git)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Steps
 
-## Running unit tests
+1. Clone the repository above.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Open VSCode and open the folder of the cloned repository.
 
-## Running end-to-end tests
+3. In VSCode, open a terminal and run `npm install` to install the dependencies.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+4. Once `npm install` is complete, run `npm start` to run the dev server. This should open a tab in the web browser and navigate to [`http://localhost:4200/`](http://localhost:4200/).
 
-## Further help
+5. Make sure API (http://localhost:8090/contactmanagement/v1/health) is running to be able to see data.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# Documentation
+
+This is a Minimum Viable Product (MVP) to demonstrate a web application that can consume an API. PrimeNG is used as UI library for my own education and to speed up the UI development. Below are a list of available features and yet-to-be implemented features.
+
+## Features
+
+### Contact List
+
+* Display list of contacts
+* Pagination if contacts exceed 10 rows
+* Sort and filter contacts
+* Add a new contact
+* Select a contact to view a contact's details
+
+### Contact Detail
+
+* Display contact's details along with list of addresses and communications
+* Edit contact's details
+* Delete the contact
+
+### Address
+
+* Display list of addresses for a given contact
+* Pagination if addresses exceed 5 rows
+* Add an address
+* Edit an address
+* Delete an address
+
+### Communication
+
+* Display list of communications for a given contact
+* Pagination if addresses exceed 5 rows
+* Add a communication
+* Edit a communication
+* Delete a communication
+
+
+## TO-DO's
+
+These are future features that can be implemented.
+
+### Contacts
+* Confirm delete before deleting record.
+* Make `Gender` dropdown if expecting only certain values.
+
+### Addresses
+* Confirm delete before deleting record. 
+* Make `Address Type` dropdown if expecting only certain values.
+* Make `City` and `State` a lookup.
+
+### Communications
+* Confirm delete before deleting record. 
+* Put validations (regex?) for Communication Value depending on Communication Type (e.g., if email, should follow format a@a.aaa, etc.).
+
+### Others
+* Apply server-side pagination, sort and filter.
+* Fix styling.
+* Login and authentication.
+* Apply CI/CD.
+* Containerize and deploy in Nginx.
+
+
+
